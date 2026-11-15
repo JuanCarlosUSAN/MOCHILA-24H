@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Organiza y revisa tu equipo para actividades de 48 horas."><title>Mochila 48 h</title><link rel="stylesheet" href="style.css?v=8"><script defer src="app.js?v=8"></script></head>
+<body>
+<header class="top"><div class="brand"><span class="mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5V4a3 3 0 0 1 6 0v1M6 9a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v11H6zM8.5 13h7v4h-7zM3 12v6m18-6v6"/></svg></span><span>Mochila <b>48 h</b></span></div><button id="print" class="outline">Imprimir checklist</button></header>
+<div class="layout">
+<aside><div class="side-title">CONFIGURACIONES</div><div id="configs"></div><button id="new-config" class="outline wide">＋ Nueva configuración</button>
+<div class="side-title categories-title">CATEGORÍAS</div><nav id="categories" aria-label="Categorías"></nav>
+<div class="storage">● Datos guardados en este navegador</div></aside>
+<main><section class="hero"><div class="hero-top"><div><div class="eyebrow">EQUIPO PARA EJERCICIOS DE 36 HORAS (JIC / JIA)</div><h1 id="activity"></h1><p id="subtitle"></p></div><div class="hero-controls"><div class="hero-signature">Stte. Amado</div><div class="hero-actions"><button id="rename" class="outline">Renombrar</button><button id="copy" class="outline">Duplicar</button></div></div></div><div class="progress-head"><span>Material preparado o revisado</span><b id="percent"></b></div><progress id="progress" max="100"></progress></section>
+<div class="config-toolbar"><button class="outline" id="manage-categories">Gestionar categorías</button><button class="outline" id="save-all">Guardar configuración</button></div>
+<section id="metrics" class="metrics" aria-label="Estado del material"></section>
+<section class="inventory"><div class="inventory-head"><div><h2>Lista de material</h2><p id="count"></p></div><button class="primary" id="add">＋ Añadir material</button></div>
+<div class="filters"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar material…" aria-label="Buscar material"></label><select id="category" aria-label="Filtrar por categoría"></select><select id="status" aria-label="Filtrar por estado"></select><button class="outline" id="quick" aria-pressed="false">Vista rápida</button></div>
+<div id="alerts" class="alerts" aria-live="polite"></div><div id="list"></div></section></main></div>
+<div id="print-preview" hidden>
+<div class="print-actions">
+<button id="close-print" class="outline">Volver a la lista</button>
+<button id="print-now" class="primary">Imprimir o guardar como PDF</button>
+<a id="download-print" class="outline" download="MOCHILA 24h.html">Descargar checklist</a>
+</div>
+<div class="print-paper"><section id="paper" aria-label="Checklist imprimible"></section></div>
+</div>
+<dialog id="editor"><form id="item-form"><div class="dialog-head"><h2 id="editor-title">Editar material</h2><button type="button" class="outline" data-close>Cerrar</button></div><div class="form-grid">
+<label class="span">Nombre<input name="name" required maxlength="140"></label><label>Categoría<select name="category"></select></label><label>Estado<select name="status"></select></label>
+<label>Cantidad prevista<input name="quantity" type="number" min="0.01" step="any" required></label><label>Cantidad disponible<input name="available" type="number" min="0" step="any" placeholder="Sin registrar"></label>
+<label>Unidad<input name="unit" placeholder="uds., litros, pares…"></label><label>Fecha de revisión<input name="review" type="date"></label><label>Fecha de caducidad<input name="expiry" type="date"></label><label class="check"><input name="optional" type="checkbox"> Solo si procede</label>
+<label class="span">Observaciones<textarea name="notes" rows="3"></textarea></label><label class="span">Enlace<input name="link" type="url" placeholder="https://…"></label><label class="span">Fotografía<input name="photo" type="file" accept="image/*"></label><div id="photo-preview" class="span"></div>
+</div><p id="editor-error" role="alert"></p><div class="dialog-foot"><button id="delete" type="button" class="danger">Eliminar material</button><button class="primary" type="submit">Guardar material</button></div>
+<div id="delete-material-confirmation" class="delete-confirmation" hidden>
+<p id="delete-material-message" role="status"></p>
+<div class="dialog-foot"><button id="cancel-delete-material" type="button" class="outline">Cancelar</button><button id="confirm-delete-material" type="button" class="danger">Confirmar eliminación</button></div>
+</div></form></dialog>
+<dialog id="config-editor"><form id="config-form"><div class="dialog-head"><h2 id="config-title"></h2><button type="button" class="outline" data-close>Cerrar</button></div><label>Nombre de la actividad<input name="name" required maxlength="80"></label><label id="source-label">Partir de<select name="source"><option value="base">Inventario inicial de 48 h</option><option value="current">Configuración actual, con estados pendientes</option><option value="empty">Lista vacía</option></select></label><p id="config-error" role="alert"></p><div class="dialog-foot"><button type="button" id="delete-config" class="danger">Eliminar configuración</button><button class="primary" type="submit">Guardar configuración</button></div></form></dialog>
+<dialog id="category-editor" aria-labelledby="category-title">
+<div class="dialog-head"><h2 id="category-title">Gestionar categorías</h2><button type="button" class="outline" data-close>Cerrar</button></div>
+<ol id="category-order"></ol>
+<form id="category-form"><label>Nueva categoría<input name="name" required maxlength="80" placeholder="Nombre de la categoría"></label>
+<p id="category-error" role="alert"></p><div class="dialog-foot"><button type="submit" class="primary">Añadir categoría</button></div></form>
+</dialog>
+<div id="notice" role="status"></div></body></html>
